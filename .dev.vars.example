@@ -1,0 +1,4 @@
+# copiar para .dev.vars (wrangler dev). Em produção: npx wrangler secret put <NOME>
+RESEND_API_KEY=re_xxx
+# chave secreta de teste do Turnstile (passa sempre)
+TURNSTILE_SECRET=1x0000000000000000000000000000000AA

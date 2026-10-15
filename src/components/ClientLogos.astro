@@ -1,0 +1,35 @@
+---
+import { Image } from 'astro:assets';
+
+// nome do cliente = alt; ficheiros em src/assets/clientes
+const files = import.meta.glob<{ default: ImageMetadata }>('../assets/clientes/*', { eager: true });
+const nomes: Record<string, string> = {
+  '7': 'Trofa Saúde', '6': 'Residências Montepio', '4': 'Continental', '3': 'Leica', '1': 'IKEA',
+  'SCM-Trofa': 'Santa Casa da Misericórdia da Trofa', HospitalTerraQuente: 'Hospital Terra Quente',
+  'Poupanca-Cash-Carry': 'Poupança Cash & Carry', 'Misericodia-da-Mealhada': 'Misericórdia da Mealhada',
+  'Misericordia-de-Vizela': 'Misericórdia de Vizela', Carclasse: 'Carclasse', Davita: 'DaVita', 'WOW-Porto': 'WOW Porto',
+  'Sofitel-': 'Sofitel Lisboa Liberdade', 'Hotel-Avenida-Palace-1': 'Hotel Avenida Palace',
+  'Camara-Municipal-de-Santo-Tirso-1': 'Câmara Municipal de Santo Tirso', 'Camara-Municipal-de-Mangualde': 'Câmara Municipal de Mangualde',
+  'Centro-Social-e-Paroquial-de-Santa-Cristina-do-Couto': 'Centro Social e Paroquial de Santa Cristina do Couto',
+  Vagasplash: 'Vagasplash', 'Camara-Municipal-de-Vila-do-Bispo': 'Câmara Municipal de Vila do Bispo', 'Vila-Gale': 'Vila Galé',
+  Solinca: 'Solinca', 'Intercontinental-Lisboa': 'InterContinental Lisboa',
+};
+const logos = Object.entries(files).map(([path, mod]) => {
+  const key = path.split('/').pop()!.replace(/\.\w+$/, '');
+  return { src: mod.default, alt: nomes[key] ?? key };
+});
+---
+
+<div class="group relative overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
+  <ul class="flex w-max animate-[marquee_60s_linear_infinite] gap-12 group-hover:[animation-play-state:paused] motion-reduce:w-full motion-reduce:animate-none motion-reduce:flex-wrap motion-reduce:justify-center">
+    {
+      [0, 1].map((copy) =>
+        logos.map((l) => (
+          <li aria-hidden={copy === 1 ? 'true' : undefined} class:list={['shrink-0', copy === 1 && 'motion-reduce:hidden']}>
+            <Image src={l.src} alt={copy === 1 ? '' : l.alt} height={96} class="h-20 w-auto object-contain" />
+          </li>
+        ))
+      )
+    }
+  </ul>
+</div>

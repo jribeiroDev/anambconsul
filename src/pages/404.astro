@@ -1,0 +1,12 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import { servicos } from '../data/site';
+---
+
+<Base title="Página não encontrada">
+  <PageHero title="Página não encontrada" subtitle="A página que procura não existe ou foi movida. Experimente uma das nossas áreas de serviço:" />
+  <ul class="container-page mt-12 grid gap-4 sm:grid-cols-2">
+    {servicos.map((s) => <li><a href={s.href} class="block rounded-2xl border border-brand-100 p-5 text-xl text-brand-700 hover:bg-brand-50">{s.titulo} →</a></li>)}
+  </ul>
+</Base>

@@ -1,0 +1,45 @@
+---
+import type { Field } from '../data/forms';
+
+interface Props {
+  field: Field;
+  idPrefix: string;
+}
+const { field: f, idPrefix } = Astro.props;
+const id = `${idPrefix}-${f.name}`;
+// campos condicionais começam escondidos e não obrigatórios; o script do formulário trata disso
+const required = f.required && !f.showIf;
+const input = 'mt-1 w-full rounded-lg border border-brand-100 bg-white px-4 py-2.5 focus:border-brand-500 focus:ring-2 focus:ring-brand-100 focus:outline-none';
+const autocomplete = { nome: 'name', email: 'email', telefone: 'tel', morada: 'street-address' }[f.name];
+const showIf = f.showIf && `${f.showIf.field}=${f.showIf.value}`;
+---
+
+{
+  f.type === 'radio' || f.type === 'checkbox' ? (
+    <fieldset data-show-if={showIf} data-required={f.required ? '' : undefined} class="data-[hidden]:hidden">
+      <legend class="font-bold">{f.label}{f.required && <span class="text-red-700" aria-hidden="true"> *</span>}</legend>
+      <div class="mt-2 flex flex-wrap gap-x-6 gap-y-2">
+        {f.options!.map((o) => (
+          <label class="flex items-center gap-2">
+            <input type={f.type} name={f.name} value={o} required={required && f.type === 'radio'} class="size-5 accent-brand-700" />
+            {o}
+          </label>
+        ))}
+      </div>
+    </fieldset>
+  ) : (
+    <div data-show-if={showIf} data-required={f.required ? '' : undefined} class:list={['data-[hidden]:hidden', (f.type === 'textarea') && 'sm:col-span-2']}>
+      <label for={id} class="font-bold">{f.label}{f.required && <span class="text-red-700" aria-hidden="true"> *</span>}</label>
+      {f.type === 'textarea' ? (
+        <textarea id={id} name={f.name} rows="5" maxlength="5000" required={required} class={input} />
+      ) : f.type === 'select' ? (
+        <select id={id} name={f.name} required={required} class={input}>
+          <option value="">Selecione…</option>
+          {f.options!.map((o) => <option>{o}</option>)}
+        </select>
+      ) : (
+        <input id={id} type={f.type} name={f.name} maxlength="300" required={required} autocomplete={autocomplete} class={input} />
+      )}
+    </div>
+  )
+}

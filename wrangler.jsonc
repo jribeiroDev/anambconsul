@@ -1,0 +1,19 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "anambconsul",
+  "main": "worker/index.ts",
+  "compatibility_date": "2026-10-01",
+  "assets": {
+    "directory": "./dist",
+    "binding": "ASSETS",
+    "html_handling": "force-trailing-slash",
+    "not_found_handling": "404-page",
+    "run_worker_first": ["/api/*"]
+  },
+  "vars": {
+    "MAIL_TO": "geral@anambconsul.pt",
+    // até o domínio estar verificado no Resend, usar onboarding@resend.dev (só entrega ao email da conta Resend)
+    "MAIL_FROM": "Site AnambConsul <site@anambconsul.pt>"
+  },
+  "observability": { "enabled": true }
+}

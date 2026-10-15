@@ -1,0 +1,22 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import Form from '../components/Form.astro';
+import banner from '../assets/banners/legionella.png';
+---
+
+<Base title="Questionário Legionella (PPL)" description="Questionário para elaboração do Plano de Prevenção e Controlo de Legionella (Lei n.º 52/2018).">
+  <PageHero title="Questionário Legionella" subtitle="Temos uma equipa comercial e técnica especializada para lhe apresentar as melhores soluções." image={banner} />
+
+  <section class="container-page mt-16 max-w-4xl">
+    <h2 class="text-3xl">Questionário para Plano de Prevenção e Controlo de Legionella (PPL)</h2>
+    <p class="mt-4 text-lg leading-relaxed">
+      Para assegurar o cumprimento dos requisitos impostos pela legislação vigente, nomeadamente a Lei n.º 52/2018, de 20 de agosto, a Portaria n.º 25/2021, de 29 de
+      janeiro, e o Despacho n.º 1547/2022, de 8 de fevereiro, é de fundamental importância a sua colaboração no preenchimento deste questionário. Este questionário foi
+      cuidadosamente elaborado com o objetivo de recolher informações essenciais para a elaboração de um plano de prevenção eficaz contra a legionella.
+    </p>
+    <div class="mt-10 rounded-3xl bg-brand-50 p-6 sm:p-12">
+      <Form id="ppl" />
+    </div>
+  </section>
+</Base>

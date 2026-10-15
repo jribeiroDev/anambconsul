@@ -1,0 +1,55 @@
+---
+import FormField from './FormField.astro';
+import { forms, pplSections, type FormId } from '../data/forms';
+
+interface Props {
+  id: FormId;
+}
+const { id } = Astro.props;
+const sections = id === 'ppl' ? pplSections : [{ title: '', fields: forms[id].fields }];
+const siteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY || '1x00000000000000000000AA'; // chave de teste da Cloudflare
+---
+
+<form method="post" action="/api/contact" class="space-y-8" data-form>
+  <input type="hidden" name="form" value={id} />
+  {
+    sections.map((s) => (
+      <fieldset class="grid gap-5 sm:grid-cols-2">
+        {s.title ? <legend class="mb-4 font-serif text-2xl text-brand-900">{s.title}</legend> : <legend class="sr-only">Os seus dados</legend>}
+        {s.fields.map((f) => <FormField field={f} idPrefix={id} />)}
+      </fieldset>
+    ))
+  }
+  <p class="text-base text-ink/70">
+    Os campos com <span class="text-red-700">*</span> são obrigatórios. Os dados enviados são usados apenas para responder ao seu pedido, conforme a nossa
+    <a href="/politica-de-privacidade/" class="underline">Política de Privacidade</a>.
+  </p>
+  <div class="cf-turnstile" data-sitekey={siteKey} data-language="pt-PT"></div>
+  <button type="submit" class="rounded-full bg-brand-700 px-8 py-3 text-lg text-white hover:bg-brand-800 disabled:opacity-60">Enviar</button>
+</form>
+
+<script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+<script>
+  // Mostra/esconde campos condicionais (data-show-if="campo=valor") e ativa "required" só nos visíveis.
+  for (const form of document.querySelectorAll<HTMLFormElement>('form[data-form]')) {
+    const deps = form.querySelectorAll<HTMLElement>('[data-show-if]');
+    if (!deps.length) continue;
+    const update = () => {
+      const data = new FormData(form);
+      for (let pass = 0; pass < 3; pass++) // cadeias: rega → tipo → "outra"
+        for (const el of deps) {
+          const [field, value] = el.dataset.showIf!.split('=');
+          const show = data.getAll(field).includes(value) && !form.querySelector(`[name="${field}"]`)?.closest('[data-hidden]');
+          el.toggleAttribute('data-hidden', !show);
+          for (const input of el.querySelectorAll<HTMLInputElement>('input, textarea, select')) {
+            input.disabled = !show;
+            if (el.hasAttribute('data-required') && input.type !== 'checkbox') input.required = show;
+          }
+        }
+    };
+    form.addEventListener('change', update);
+    update();
+  }
+  for (const form of document.querySelectorAll<HTMLFormElement>('form[data-form]'))
+    form.addEventListener('submit', () => form.querySelector('button[type=submit]')?.setAttribute('disabled', ''));
+</script>

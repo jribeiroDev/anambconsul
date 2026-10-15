@@ -1,0 +1,50 @@
+---
+import { Image } from 'astro:assets';
+import logo from '../assets/logo.png';
+import { servicos, nav } from '../data/site';
+
+const path = Astro.url.pathname;
+const current = (href: string) => (path === href ? 'page' : undefined);
+const link = 'rounded-md px-3 py-2 hover:text-brand-700 aria-[current=page]:text-brand-700 aria-[current=page]:font-bold';
+---
+
+<header class="sticky top-0 z-40 border-b border-brand-100 bg-white/90 backdrop-blur">
+  <div class="container-page flex h-20 items-center justify-between gap-4">
+    <a href="/" class="shrink-0" aria-label="AnambConsul – página inicial">
+      <Image src={logo} alt="AnambConsul" height={60} loading="eager" class="h-14 w-auto" />
+    </a>
+
+    <nav aria-label="Principal" class="hidden items-center gap-1 text-lg tracking-wide uppercase md:flex">
+      <div class="group relative">
+        <button type="button" class="flex items-center gap-1 rounded-md px-3 py-2 uppercase hover:text-brand-700" aria-haspopup="true">
+          Serviços
+          <svg class="size-4 transition group-focus-within:rotate-180 group-hover:rotate-180" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M5.3 7.3a1 1 0 0 1 1.4 0L10 10.6l3.3-3.3a1 1 0 1 1 1.4 1.4l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 0 1 0-1.4Z" /></svg>
+        </button>
+        <ul class="invisible absolute top-full left-0 w-72 rounded-xl border border-brand-100 bg-white p-2 normal-case opacity-0 shadow-xl transition group-focus-within:visible group-focus-within:opacity-100 group-hover:visible group-hover:opacity-100">
+          {servicos.map((s) => (
+            <li><a href={s.href} aria-current={current(s.href)} class={`block ${link}`}>{s.titulo}</a></li>
+          ))}
+        </ul>
+      </div>
+      {nav.map((n) => <a href={n.href} aria-current={current(n.href)} class={link}>{n.label}</a>)}
+      <a href="/contactos/#formulario" class="ml-2 rounded-full bg-brand-700 px-5 py-2 text-white normal-case hover:bg-brand-800">Pedir contacto</a>
+    </nav>
+
+    <details class="group relative md:hidden">
+      <summary class="flex cursor-pointer list-none items-center rounded-md p-2 [&::-webkit-details-marker]:hidden" aria-label="Abrir menu">
+        <svg class="size-7 group-open:hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16" /></svg>
+        <svg class="hidden size-7 group-open:block" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" /></svg>
+      </summary>
+      <nav aria-label="Principal (móvel)" class="absolute right-0 mt-3 w-72 rounded-xl border border-brand-100 bg-white p-3 shadow-xl">
+        <p class="px-3 pt-1 text-sm text-brand-700 uppercase">Serviços</p>
+        <ul>
+          {servicos.map((s) => <li><a href={s.href} aria-current={current(s.href)} class={`block ${link}`}>{s.titulo}</a></li>)}
+        </ul>
+        <hr class="my-2 border-brand-100" />
+        <ul>
+          {nav.map((n) => <li><a href={n.href} aria-current={current(n.href)} class={`block ${link}`}>{n.label}</a></li>)}
+        </ul>
+      </nav>
+    </details>
+  </div>
+</header>

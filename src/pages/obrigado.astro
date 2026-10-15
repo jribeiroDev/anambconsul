@@ -1,0 +1,12 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+---
+
+<Base title="Mensagem enviada" description="Obrigado pelo seu contacto.">
+  <meta name="robots" content="noindex" slot="head" />
+  <PageHero title="Enviado!" subtitle="Obrigado pelo seu contacto. A nossa equipa irá responder com a maior brevidade possível." />
+  <section class="container-page mt-16 text-center">
+    <a href="/" class="rounded-full bg-brand-700 px-8 py-3 text-lg text-white hover:bg-brand-800">Voltar à página inicial</a>
+  </section>
+</Base>
