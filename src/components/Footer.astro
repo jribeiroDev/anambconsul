@@ -6,7 +6,7 @@ import { empresa, servicos } from '../data/site';
 ---
 
 <footer class="mt-24 bg-brand-900 text-brand-50">
-  <div class="container-page grid gap-10 py-14 sm:grid-cols-2 lg:grid-cols-4">
+  <div class="container-page grid gap-10 py-14 sm:grid-cols-2 lg:grid-cols-3">
     <div>
       <h2 class="mb-3 text-xl text-white">Localização</h2>
       <address class="not-italic">{empresa.morada.map((l) => <>{l}<br /></>)}</address>
@@ -33,14 +33,11 @@ import { empresa, servicos } from '../data/site';
         </a>
       </div>
     </div>
-    <div class="rounded-xl bg-white p-3">
-      <Image src={certificacoes} alt="Certificação APCER ISO 9001 (certificado nº 2014/CEP.4670), IQNet e Scoring Top 5% Melhores PME Portugal 2025" widths={[320, 640]} sizes="320px" class="w-full" />
-    </div>
-  </div>
-  <div class="bg-white">
-    <div class="container-page py-4">
-      <a href="/Cartaz-de-publicitacao.pdf" target="_blank" class="block" aria-label="Projeto financiado pelo PRR, República Portuguesa e União Europeia NextGenerationEU – ver cartaz de publicitação (PDF)">
-        <Image src={financiamento} alt="" widths={[640, 1280]} sizes="(min-width: 1152px) 1104px, 100vw" class="mx-auto w-full max-w-4xl" />
+    <!-- certificações + financiamento PRR no mesmo bloco, a toda a largura para os logótipos ficarem legíveis -->
+    <div class="flex flex-col items-center gap-6 rounded-xl bg-white p-4 sm:col-span-2 lg:col-span-3 lg:flex-row">
+      <Image src={certificacoes} alt="Certificação APCER ISO 9001 (certificado nº 2014/CEP.4670), IQNet e Scoring Top 5% Melhores PME Portugal 2025" widths={[320, 640]} sizes="320px" class="w-full max-w-xs" />
+      <a href="/Cartaz-de-publicitacao.pdf" target="_blank" class="block w-full" aria-label="Projeto financiado pelo PRR, República Portuguesa e União Europeia NextGenerationEU – ver cartaz de publicitação (PDF)">
+        <Image src={financiamento} alt="" widths={[640, 1280]} sizes="(min-width: 1024px) 760px, 100vw" class="w-full" />
       </a>
     </div>
   </div>

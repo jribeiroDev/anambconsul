@@ -13,7 +13,7 @@ const indicadores = [
 <Base title="Sobre Nós" description="Fundada em 2010, a AnambConsul é uma equipa multidisciplinar em Ar Interior e Águas, certificada pela norma NP EN ISO 9001:2015.">
   <PageHero title="Sobre Nós" subtitle="AnambConsul – Consultoria e Análises Ambientais, Lda" />
 
-  <article class="container-page prose prose-lg mt-16 max-w-3xl prose-headings:font-serif prose-headings:text-brand-900">
+  <article class="container-page prose prose-lg mt-16 max-w-3xl prose-headings:font-semibold prose-headings:text-brand-900">
     <p>
       Fundados em 2010, a AnambConsul – Consultoria e Análises Ambientais é constituída por uma equipa multidisciplinar – Ar Interior e Águas – cujo principal objetivo
       consiste em tornar-se uma referência nas suas áreas de atuação, respondendo com a máxima eficiência e qualidade às exigências do mercado atual e futuro.
@@ -45,18 +45,18 @@ const indicadores = [
     {
       indicadores.map((i) => (
         <div class="rounded-2xl border border-brand-100 p-6 text-center">
-          <p class="font-serif text-5xl text-brand-700">{i.valor}%</p>
+          <p class="text-5xl font-semibold text-brand-700">{i.valor}%</p>
           <div class="mt-4 h-2 overflow-hidden rounded-full bg-brand-100" aria-hidden="true">
             <div class="h-full rounded-full bg-gradient-to-r from-brand-500 to-water-500" style={`width:${i.valor}%`}></div>
           </div>
-          <h2 class="mt-4 font-sans text-lg text-ink">{i.label}</h2>
+          <h2 class="mt-4 text-lg font-normal text-ink">{i.label}</h2>
         </div>
       ))
     }
   </section>
 
   <figure class="container-page mt-16 max-w-3xl">
-    <blockquote class="rounded-3xl bg-brand-50 p-8 font-serif text-2xl leading-relaxed text-brand-900">
+    <blockquote class="rounded-3xl bg-brand-50 p-8 text-2xl leading-relaxed text-brand-900">
       “Para nós, o cliente está em primeiro lugar. Temos uma relação de proximidade com os nossos clientes, não somos apenas um fornecedor, mas sim um parceiro ativo,
       prestando um serviço personalizado e de qualidade.”
     </blockquote>

@@ -7,7 +7,7 @@ const { frontmatter } = Astro.props;
 
 <Base title={frontmatter.title} description={frontmatter.description}>
   <PageHero title={frontmatter.title} />
-  <article class="container-page prose prose-lg mt-16 max-w-3xl prose-headings:font-serif prose-headings:text-brand-900 prose-a:text-brand-700">
+  <article class="container-page prose prose-lg mt-16 max-w-3xl prose-headings:font-semibold prose-headings:text-brand-900 prose-a:text-brand-700">
     <slot />
   </article>
 </Base>

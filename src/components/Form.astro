@@ -15,7 +15,7 @@ const siteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY || '1x0000000000000000
   {
     sections.map((s) => (
       <fieldset class="grid gap-5 sm:grid-cols-2">
-        {s.title ? <legend class="mb-4 font-serif text-2xl text-brand-900">{s.title}</legend> : <legend class="sr-only">Os seus dados</legend>}
+        {s.title ? <legend class="mb-4 text-2xl font-semibold text-brand-900">{s.title}</legend> : <legend class="sr-only">Os seus dados</legend>}
         {s.fields.map((f) => <FormField field={f} idPrefix={id} />)}
       </fieldset>
     ))

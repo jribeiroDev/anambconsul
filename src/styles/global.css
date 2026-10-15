@@ -1,11 +1,9 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
-@import "@fontsource/abel";
-@import "@fontsource/alice";
+@import "@fontsource-variable/outfit";
 
 @theme {
-  --font-sans: "Abel", ui-sans-serif, system-ui, sans-serif;
-  --font-serif: "Alice", Georgia, serif;
+  --font-sans: "Outfit Variable", ui-sans-serif, system-ui, sans-serif;
 
   /* verde do logótipo */
   --color-brand-50: #f3f9ec;
@@ -23,15 +21,33 @@
 }
 
 @layer base {
-  html { scroll-behavior: smooth; }
-  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
-  body { @apply bg-white text-ink font-sans text-lg antialiased; }
-  h1, h2, h3 { @apply font-serif text-brand-900; }
-  :focus-visible { @apply outline-2 outline-offset-2 outline-water-500; }
+  html {
+    scroll-behavior: smooth;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+  body {
+    @apply bg-white text-ink font-sans text-lg antialiased;
+  }
+  h1,
+  h2,
+  h3 {
+    @apply font-semibold text-brand-900;
+  }
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-water-500;
+  }
 }
 
 @utility container-page {
   @apply mx-auto w-full max-w-6xl px-4 sm:px-6;
 }
 
-@keyframes marquee { to { transform: translateX(-50%); } }
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
